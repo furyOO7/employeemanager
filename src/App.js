@@ -5,13 +5,12 @@ import AddRole from './components/addRole';
 import CreateEmploye from './components/createEmploye';
 function App() {
   return (
-    // <div className="App">
-      
-    
+    <div className="App">
+      <Route exact path='/'>
+      <MainContainer />
+      </Route>
+     
       <Switch>
-        <Route exact path="/">
-        <MainContainer />
-        </Route>
       <Route exact path='/page-2'>
 							<AddRole />
 					</Route>
@@ -19,7 +18,7 @@ function App() {
 							<CreateEmploye />
 					</Route>
           </Switch>
-    // </div>
+    </div>
   );
 }
 
