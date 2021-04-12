@@ -1,9 +1,10 @@
 import React from 'react';
+import AddRoleFormComponent from './AddRoleFormComponent/AddRoleFormComponent';
 
 const AddRole = (props) => {
     return ( 
-        <p>Add Role</p>
-     );
+        <AddRoleFormComponent />
+     )
 }
  
 export default AddRole;
