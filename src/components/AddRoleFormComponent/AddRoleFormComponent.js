@@ -1,86 +1,158 @@
-import React,{use} from 'react';
-import { Col, Button, Form, FormGroup, Label, Input, FormText, Container, Row } from 'reactstrap';
+import React, { useState } from 'react';
+import { Col, Container, Row } from 'reactstrap';
+import { Button, Snackbar} from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+import addRolesData from '../../api/addRolesData';
 
 import './AddRoleFormComponent.css';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+    },
+}));
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 const AddRoleFormComponent = () => {
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const classes = useStyles();
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+    const [fromDate, setFromDate] = useState(new Date('2014-08-18T21:11:54'));
+    const [toDate, setToDate] = useState(new Date('2014-08-18T21:11:54'));
+    const [key, setKey] = useState('');
+    const [name, setName] = useState('');
+    const [open, setOpen] = React.useState(false);
+
+    const showSuccessMsg = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
+
+    const handleFromDateChange = (date) => {
+        let modifiedDate = new Date(date);
+        setFromDate(modifiedDate.toDateString());
+    };
+
+    const handleToDateChange = (date) => {
+        let modifiedDate = new Date(date);
+        setToDate(modifiedDate.toDateString());
+    };
+
+    const onKeyChangeOnhandler = (e) => {
+        setKey(e.target.value);
+    }
+    const onNameChangeHandler = (e) => {
+        setName(e.target.value);
+    }
+
+    const onSubmitHandler = async () => {
+        console.log(key, name, toDate, fromDate, 'oooo');
+        let postObj = {
+            "roleKey": key,
+            "roleName": name,
+            "from": fromDate,
+            "to": toDate
+        }
+        const result = await addRolesData(postObj);
+        if(result.status === 201){
+            showSuccessMsg();
+        }
+    }
+
     return (
 
         <Container fluid={true}>
             <Row>
                 <Col lg={2}>
                 </Col>
-
+                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success">
+                        Role Added Successfully
+                </Alert>
+                </Snackbar>
                 <Col lg={8}>
-                    <Form>
-                        <FormGroup row>
-                            <Label for="exampleEmail" sm={2}>Role Id</Label>
-                            <Col sm={10}>
-                                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleEmail" sm={2}>Role Name</Label>
-                            <Col sm={10}>
-                                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-                            </Col>
-                        </FormGroup>
-                    </Form>
-                </Col>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justify="space-around">
-                        <KeyboardDatePicker
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            label="From"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date'
-                            }}
+                    <form
+
+                        className={classes.root} noValidate autoComplete="off">
+                        <TextField
+                            onChange={(e) => onKeyChangeOnhandler(e)}
+                            id="standard-basic"
+                            label="Role Key"
+                            value={key}
                         />
-                        </Grid>
+
+                        <TextField id="standard-basic" label="Role Name"
+                            onChange={onNameChangeHandler}
+                        />
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <Grid container justify="space-around">
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    margin="normal"
+                                    id="date-picker-inline"
+                                    label="From"
+                                    value={fromDate}
+                                    onChange={handleFromDateChange}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date'
+                                    }}
+                                />
+                            </Grid>
                         </MuiPickersUtilsProvider>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justify="space-around">
-                        <KeyboardDatePicker
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="To"
-                            label="Date picker inline"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date'
-                            }}
-                        />
-                        </Grid>
+                            <Grid container justify="space-around">
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    margin="normal"
+                                    id="To"
+                                    label="To"
+                                    value={toDate}
+                                    onChange={handleToDateChange}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date'
+                                    }}
+                                />
+                            </Grid>
                         </MuiPickersUtilsProvider>
-                        <Col lg={2}>
-                        </Col>
+                        <Button variant="contained" color="primary" onClick={onSubmitHandler}>
+                            Add
+                        </Button>
+                    </form>
+                </Col>
+                <Col lg={2}>
+                </Col>
             </Row>
         </Container>
+    );
+}
 
-
-                );
-            }
-            
-            export default AddRoleFormComponent;
+export default AddRoleFormComponent;

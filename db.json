@@ -1,0 +1,81 @@
+{
+  "roles": [
+    {
+      "roleKey": "UI_DEVELOPER",
+      "roleName": "Adarsh Yadav",
+      "from": "Tue Dec 16 2014",
+      "to": "Fri May 22 2015",
+      "id": 1
+    },
+    {
+      "roleKey": "UI_DEVELOPER",
+      "roleName": "Adarsh Yadav",
+      "from": "Tue Dec 16 2014",
+      "to": "Fri May 22 2015",
+      "id": 2
+    },
+    {
+      "roleKey": "UI_DEVELOPER",
+      "roleName": "Adarsh Yadav",
+      "from": "Tue Dec 16 2014",
+      "to": "Fri May 22 2015",
+      "id": 3
+    },
+    {
+      "roleKey": "FS_",
+      "roleName": "Baatu",
+      "from": "Tue Aug 26 2014",
+      "to": "Thu Dec 18 2014",
+      "id": 4
+    },
+    {
+      "roleKey": "FS_",
+      "roleName": "Baatu",
+      "from": "Tue Aug 26 2014",
+      "to": "Thu Dec 18 2014",
+      "id": 5
+    },
+    {
+      "roleKey": "FS_",
+      "roleName": "Baatu",
+      "from": "Tue Aug 26 2014",
+      "to": "Thu Dec 18 2014",
+      "id": 6
+    },
+    {
+      "roleKey": "FS_",
+      "roleName": "Baatu",
+      "from": "Tue Aug 26 2014",
+      "to": "Thu Dec 18 2014",
+      "id": 7
+    },
+    {
+      "roleKey": "wdasd",
+      "roleName": "adasd",
+      "from": "2014-08-18T15:41:54.000Z",
+      "to": "2014-08-18T15:41:54.000Z",
+      "id": 8
+    },
+    {
+      "roleKey": "sss",
+      "roleName": "ss",
+      "from": "2014-08-18T15:41:54.000Z",
+      "to": "2014-08-18T15:41:54.000Z",
+      "id": 9
+    },
+    {
+      "roleKey": "sss",
+      "roleName": "ss",
+      "from": "2014-08-18T15:41:54.000Z",
+      "to": "2014-08-18T15:41:54.000Z",
+      "id": 10
+    },
+    {
+      "roleKey": "as",
+      "roleName": "as",
+      "from": "2014-08-18T15:41:54.000Z",
+      "to": "2014-08-18T15:41:54.000Z",
+      "id": 11
+    }
+  ]
+}
