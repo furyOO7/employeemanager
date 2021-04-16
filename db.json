@@ -1,0 +1,18 @@
+{
+  "roles": [
+    {
+      "roleKey": "UI_D",
+      "roleName": "UI Developer",
+      "from": "2014-08-18T15:41:54.000Z",
+      "to": "2014-08-18T15:41:54.000Z",
+      "id": 1
+    },
+    {
+      "roleKey": "DEVOPS_",
+      "roleName": "DevOps",
+      "from": "2014-08-18T15:41:54.000Z",
+      "to": "2014-08-18T15:41:54.000Z",
+      "id": 2
+    }
+  ]
+}
