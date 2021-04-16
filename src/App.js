@@ -2,8 +2,7 @@
 import MainContainer from './components/mainconatiner'
 import { Route, Switch, /*BrowserRouter,  Redirect */ } from 'react-router-dom'
 import AddRole from './components/addRole';
-import CreateEmploye from './components/createEmploye';
-import CreateEmployeFormComponent from './components/CreateRoleFormComponent/CreateRoleFormComponent'
+import CreateEmpFormComponent from './components/CreateEmpFormComponent/CreateEmpFormComponent'
 function App() {
   return (
     <div className="App">
@@ -16,7 +15,7 @@ function App() {
 							<AddRole />
 					</Route>
           <Route exact path='/page-3'>
-							<CreateEmployeFormComponent />
+							<CreateEmpFormComponent />
 					</Route>
           </Switch>
     </div>

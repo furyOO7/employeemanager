@@ -9,9 +9,11 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import './CreateRoleFormComponent.css';
+// import './CreateRoleFormComponent.css';
 import { getRoleData, roleTag } from '../../api/getRoleData';
-// import clsx from 'clsx';
+import  addEmployeData  from '../../api/addEmployeData';
+
+// import './AddRoleFormComponent/AddRoleFormComponent.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,27 +25,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center"
     },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-        maxWidth: 300,
-    },
-    chips: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    chip: {
-        margin: 2,
-    },
-    noLabel: {
-        marginTop: theme.spacing(3),
-    }
 }));
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 function getStyles(name, personName, theme) {
     return {
         fontWeight:
@@ -52,25 +34,28 @@ function getStyles(name, personName, theme) {
                 : theme.typography.fontWeightMedium,
     };
 }
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
-const CreateEmployeFormComponent = () => {
+const CreateEmpFormComponent = () => {
+    
     const classes = useStyles();
-
-    const [fromDate, setFromDate] = useState(new Date('2014-08-18T21:11:54'));
-    const [toDate, setToDate] = useState(new Date('2014-08-18T21:11:54'));
-    const [key, setKey] = useState('');
-    const [name, setName] = useState('');
-    const [open, setOpen] = React.useState(false);
     const theme = useTheme();
+    const [name, setName] = useState('');
     const [personRoles, setPersonRoles] = React.useState([]);
     const [roleTags, setRoleTags] = useState([]);
+    const [empcode, setEmpcode] = useState('');
+    const [dob, setDob] = useState(new Date('2014-08-18T21:11:54'));
+    const [experience, setExperience] = useState('0');
+    const [fromDate, setFromDate] = useState(new Date('2014-08-18T21:11:54'));
+    const [toDate, setToDate] = useState(new Date('2014-08-18T21:11:54'));
+    const [open, setOpen] = React.useState(false);
 
     const showSuccessMsg = () => {
         setOpen(true);
     };
 
-    let names = ['asd', 'asde'];
-    // const names = roleTag;
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -89,26 +74,44 @@ const CreateEmployeFormComponent = () => {
         let modifiedDate = new Date(date);
         setToDate(modifiedDate.toDateString());
     };
-
-    const onKeyChangeOnhandler = (e) => {
-        setKey(e.target.value);
+    const handledobChange = (date) => {
+        let modifiedDate = new Date(date);
+        setDob(modifiedDate.toDateString());
+    };
+    const onCodeChangeOnhandler = (e) => {
+        setEmpcode(e.target.value);
     }
     const onNameChangeHandler = (e) => {
         setName(e.target.value);
     }
-
-    const onSubmitHandler = async () => {
-
+    const onexpChangeHandler = (e) => {
+        setExperience(e.target.value);
     }
 
     const handleMultpileChange = (e) => {
         setPersonRoles(e.target.value)
     }
 
+    const onSubmitHandler = async () => {
+        let postObj = {
+            "name": name,
+            "personRoles": personRoles,
+            "empcode": empcode,
+            "dob": dob,
+            "experience":experience,
+            "from": fromDate,
+            "to": toDate
+        }
+    console.log(postObj)
+        const result = await addEmployeData(postObj);
+        if (result.status === 201) {
+            showSuccessMsg();
+        }
+    }
     useEffect(() => {
         const fetchTag = async () => {
             const tags = await getRoleData();
-            console.log(tags);
+            // console.log(tags);
             setRoleTags(tags);
         }
         fetchTag();
@@ -121,16 +124,18 @@ const CreateEmployeFormComponent = () => {
                 </Col>
                 <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="success">
-                        Role Added Successfully
+                        Employee Added Successfully
                 </Alert>
                 </Snackbar>
                 <Col lg={8}>
                     <form className={classes.root} noValidate autoComplete="off">
                         <TextField
-                            onChange={(e) => onKeyChangeOnhandler(e)}
+                            onChange={onNameChangeHandler}
                             id="standard-basic"
                             label="Name"
-                            value={key}
+                            value={name}
+                            required
+                            
                         />
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-mutiple-chip-label">Roles</InputLabel>
@@ -148,6 +153,7 @@ const CreateEmployeFormComponent = () => {
                                         ))}
                                     </div>
                                 )}
+                                required
                             >
                                 {roleTags.map((name) => (
                                     <MenuItem key={name} value={name} style={getStyles(name, personRoles, theme)}>
@@ -156,33 +162,35 @@ const CreateEmployeFormComponent = () => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <TextField id="standard-basic" label="Code"
-                            onChange={onNameChangeHandler}
+                        <TextField id="standard-basic" label="Code" required
+                            onChange={onCodeChangeOnhandler}
                         />
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <Grid container justify="space-around">
                                 <KeyboardDatePicker
                                     disableToolbar
+                                    required
                                     variant="inline"
                                     format="MM/dd/yyyy"
                                     margin="normal"
                                     id="date-picker-inline"
                                     label="Date Of Birth"
-                                    value={fromDate}
-                                    onChange={handleFromDateChange}
+                                    value={dob}
+                                    onChange={handledobChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date'
                                     }}
                                 />
                             </Grid>
                         </MuiPickersUtilsProvider>
-                        <TextField id="standard-basic" label="Exp"
-                            onChange={onNameChangeHandler}
+                        <TextField id="standard-basic" label="Exp" required
+                            onChange={onexpChangeHandler}
                         />
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <Grid container justify="space-around">
                                 <KeyboardDatePicker
                                     disableToolbar
+                                    required
                                     variant="inline"
                                     format="MM/dd/yyyy"
                                     margin="normal"
@@ -225,4 +233,4 @@ const CreateEmployeFormComponent = () => {
     );
 }
 
-export default CreateEmployeFormComponent;
+export default CreateEmpFormComponent;
