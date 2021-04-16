@@ -1,7 +1,7 @@
 import axios from 'axios';
     
 const addEmployeData = async (postObj) =>{
-        const result = await axios.post('http://localhost:3000/addemp', postObj, {
+        const result = await axios.post('http://localhost:3000/employee', postObj, {
             headers: {
                 'content-type': 'application/json'
             }
