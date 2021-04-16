@@ -18,14 +18,12 @@
   "employee": [
     {
       "name": "Adarsh",
-      "personRoles": [
-        "UI Developer"
-      ],
-      "empcode": "123ss",
-      "dob": "Tue Jul 16 2013",
-      "experience": "2",
-      "from": "Tue Jul 01 2014",
-      "to": "Thu Aug 07 2014",
+      "personRoles": [],
+      "empcode": "",
+      "dob": "2021-04-16T17:36:39.442Z",
+      "experience": "0",
+      "from": "2021-04-16T17:36:39.442Z",
+      "to": "Tue Apr 06 2021",
       "id": 1
     }
   ]

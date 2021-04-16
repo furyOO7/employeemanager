@@ -11,7 +11,7 @@ import {
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 // import './CreateRoleFormComponent.css';
 import { getRoleData, roleTag } from '../../api/getRoleData';
-import  addEmployeData  from '../../api/addEmployeData';
+import  {addEmployeData}  from '../../api/addEmployeData';
 
 // import './AddRoleFormComponent/AddRoleFormComponent.css';
 
@@ -46,10 +46,10 @@ const CreateEmpFormComponent = () => {
     const [personRoles, setPersonRoles] = React.useState([]);
     const [roleTags, setRoleTags] = useState([]);
     const [empcode, setEmpcode] = useState('');
-    const [dob, setDob] = useState(new Date('2014-08-18T21:11:54'));
+    const [dob, setDob] = useState(new Date());
     const [experience, setExperience] = useState('0');
-    const [fromDate, setFromDate] = useState(new Date('2014-08-18T21:11:54'));
-    const [toDate, setToDate] = useState(new Date('2014-08-18T21:11:54'));
+    const [fromDate, setFromDate] = useState(new Date());
+    const [toDate, setToDate] = useState(new Date());
     const [open, setOpen] = React.useState(false);
 
     const showSuccessMsg = () => {

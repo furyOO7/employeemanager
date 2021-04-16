@@ -2,7 +2,7 @@ import React from 'react';
 const EmployeList = (props) => {
     console.log(props)
     return ( 
-        <table class="table table-bordered">
+        <table className="table table-bordered">
         <thead>
             <tr>
                 <th>Name</th>
@@ -19,7 +19,8 @@ const EmployeList = (props) => {
                     <td>{
                    new Date() > new Date( emp.to) ? "Ex Employee" : "Employee"
                     }</td>
-                    
+                    <div>Edit</div>
+                    <div onClick={e => props.deleteHandler(e,emp)}>Delete</div>
                     </tr>
                     )
                 })
